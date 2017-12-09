@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.TeamS.sugar.mapper.UserMapper" >
+
+    <resultMap id="UserResult" type="org.TeamS.sugar.entity.User">
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR"></id>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <select id="getUserById" parameterType="java.lang.String" resultMap="UserResult">
+        SELECT u.USER_ID , u.USER_NAME
+        FROM pub_users u
+        WHERE u.USER_ID = #{id}
+    </select>
+
+</mapper>
