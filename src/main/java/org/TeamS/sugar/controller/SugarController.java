@@ -23,8 +23,8 @@ public class SugarController {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @ResponseBody
-    @RequestMapping(value = "/getUserAllSugarData")
-    public SugarResult getUserAllSugarData(String userId){
+    @RequestMapping(value = "/getUserAllSugarFullData")
+    public SugarResult getUserAllSugarFullData(String userId){
         int userIdInt = -1;
         try {
             userIdInt = Integer.parseInt(userId);
@@ -33,14 +33,14 @@ public class SugarController {
         if (userIdInt == -1) {
             return SugarResult.build(500,"用户Id转化错误！");
         } else {
-            List<SugarFull> sugarList = sugarService.getSugarListByUserId(userIdInt);
+            List<SugarFull> sugarList = sugarService.getSugarFullListByUserId(userIdInt);
             return SugarResult.ok(sugarList);
         }
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getUserSugarDate")
-    public SugarResult getUserSugarDate(String userId, String start, String end){
+    @RequestMapping(value = "/getUserSugarFullDate")
+    public SugarResult getUserSugarFullDate(String userId, String start, String end){
         int userIdInt = -1;
         Date startTime;
         Date endTime;
@@ -52,8 +52,24 @@ public class SugarController {
             return SugarResult.build(500,"参数转换错误！",e);
         }
 
-        List<SugarFull> sugarList = sugarService.getSugarListByUserIdAndDate(userIdInt, startTime, endTime);
+        List<SugarFull> sugarList = sugarService.getSugarFullListByUserIdAndDate(userIdInt, startTime, endTime);
         return SugarResult.ok(sugarList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserAllSugarData")
+    public SugarResult getUserAllSugarData(String userId){
+        int userIdInt = -1;
+        try {
+            userIdInt = Integer.parseInt(userId);
+        }catch (Exception e) {
+        }
+        if (userIdInt == -1) {
+            return SugarResult.build(500,"用户Id转化错误！");
+        } else {
+            List<Sugar> sugarList = sugarService.getSugarListByUserId(userIdInt);
+            return SugarResult.ok(sugarList);
+        }
     }
 
 }

@@ -4,14 +4,14 @@
 
     <resultMap id="SugarResult" type="org.TeamS.sugar.entity.Sugar">
         <id column="id" property="id" jdbcType="INTEGER"></id>
-        <result column="sugar_data" property="fastingSugar" jdbcType="VARCHAR"></result>
-        <result column="sugar_type" property="breakfastSugar" jdbcType="VARCHAR"></result>
+        <result column="sugar_data" property="sugarData" jdbcType="VARCHAR"></result>
+        <result column="sugar_type" property="sugarType" jdbcType="VARCHAR"></result>
         <result column="sugar_date" property="sugarDate" jdbcType="DATE"></result>
     </resultMap>
 
     <select id="getListByUserId" parameterType="java.lang.Integer" resultMap="SugarResult">
-        SELECT s.id , s.fasting_sugar , s.breakfast_sugar , s.lunch_sugar , s.dinner_sugar , s.sugar_date
-        FROM sugar_full s
+        SELECT s.id , s.sugar_data , s.sugar_type , s.sugar_date
+        FROM sugar s
         WHERE s.user_id = #{userId}
     </select>
 

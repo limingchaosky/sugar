@@ -12,6 +12,6 @@ public interface SugarMapper {
 
     List<Sugar> getListByUserIdAndSugarDate(@Param(value = "userId") int userId, @Param(value = "startTime") Date startTime, @Param(value = "endTime") Date endTime);
 
-    List<Sugar> getListByUserIdAndSugarDateAndSugarType(@Param(value = "userId") int userId, @Param(value = "startTime") Date startTime, @Param(value = "endTime") Date endTime);
+    List<Sugar> getListByUserIdAndSugarDateAndSugarType(@Param(value = "userId") int userId, List<String> sugarTypes, @Param(value = "startTime") Date startTime, @Param(value = "endTime") Date endTime);
 
 }
