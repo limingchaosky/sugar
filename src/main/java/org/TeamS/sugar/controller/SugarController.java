@@ -1,6 +1,7 @@
 package org.TeamS.sugar.controller;
 
 import org.TeamS.sugar.entity.Sugar;
+import org.TeamS.sugar.entity.SugarFull;
 import org.TeamS.sugar.service.ISugarService;
 import org.TeamS.sugar.utils.SugarResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -16,6 +19,8 @@ public class SugarController {
 
     @Autowired
     private ISugarService sugarService;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @ResponseBody
     @RequestMapping(value = "/getUserAllSugarData")
@@ -26,11 +31,29 @@ public class SugarController {
         }catch (Exception e) {
         }
         if (userIdInt == -1) {
-            return SugarResult.build(500,"用户Id错误！");
+            return SugarResult.build(500,"用户Id转化错误！");
         } else {
-            List<Sugar> sugarList = sugarService.getSugarListByUserId(userIdInt);
+            List<SugarFull> sugarList = sugarService.getSugarListByUserId(userIdInt);
             return SugarResult.ok(sugarList);
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserSugarDate")
+    public SugarResult getUserSugarDate(String userId, String start, String end){
+        int userIdInt = -1;
+        Date startTime;
+        Date endTime;
+        try {
+            userIdInt = Integer.parseInt(userId);
+            startTime = sdf.parse(start);
+            endTime = sdf.parse(end);
+        }catch (Exception e){
+            return SugarResult.build(500,"参数转换错误！",e);
+        }
+
+        List<SugarFull> sugarList = sugarService.getSugarListByUserIdAndDate(userIdInt, startTime, endTime);
+        return SugarResult.ok(sugarList);
     }
 
 }

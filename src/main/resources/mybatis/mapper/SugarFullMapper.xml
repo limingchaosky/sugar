@@ -17,4 +17,9 @@
         WHERE s.user_id = #{userId}
     </select>
 
+    <select id="getListByUserIdAndSugarDate" resultMap="SugarResult" >
+        SELECT s.id , s.fasting_sugar , s.breakfast_sugar , s.lunch_sugar , s.dinner_sugar , s.sugar_date
+        FROM sugar_full s
+        WHERE s.user_id = #{userId} AND sugar_date &gt; #{startTime} AND sugar_date &lt; #{endTime}
+    </select>
 </mapper>
