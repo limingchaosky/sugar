@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.TeamS.sugar.mapper.SugarFullMapper" >
+
+    <resultMap id="SugarResult" type="org.TeamS.sugar.entity.SugarFull">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="fasting_sugar" property="fastingSugar" jdbcType="VARCHAR"></result>
+        <result column="breakfast_sugar" property="breakfastSugar" jdbcType="VARCHAR"></result>
+        <result column="lunch_sugar" property="lunchSugar" jdbcType="VARCHAR"></result>
+        <result column="dinner_sugar" property="dinnerSugar" jdbcType="VARCHAR"></result>
+        <result column="sugar_date" property="sugarDate" jdbcType="DATE"></result>
+    </resultMap>
+
+    <select id="getListByUserId" parameterType="java.lang.Integer" resultMap="SugarResult">
+        SELECT s.id , s.fasting_sugar , s.breakfast_sugar , s.lunch_sugar , s.dinner_sugar , s.sugar_date
+        FROM sugar_full s
+        WHERE s.user_id = #{userId}
+    </select>
+
+</mapper>
